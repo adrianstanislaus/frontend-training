@@ -1,0 +1,36 @@
+div {
+    font-family: 'Slabo-27px', serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.merah {
+    background-color: red;
+    color: white;
+    height: 100px;
+    width: 100px;
+    margin: 20px 40px 20px 20px;
+    padding: 20px;
+}
+
+.biru {
+    background-color:blue;
+    color: white;
+    height: 100px;
+    width: 100px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.hijau {
+    background-color:green;
+    color: white;
+    height: 350px;
+    width: 350px;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.flex-container {
+    display: flex;
+}
