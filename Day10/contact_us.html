@@ -23,40 +23,49 @@
             <form-wrapper class="container justify-content-center align-items-center" style="width: max-content;">
                 <div class="my-5 pt-2 px-3" style="width: 50vw;">
                     <h3 style="color:#19345E;">Contact Us</h3>
-                    <form style="color:#19345E;">
+                    <form id="main-form" action="./review_message.html" class="needs-validation" style="color:#19345E;" novalidate>
                         <div class="mb-2">
-                            <label for="formGroupExampleInput" class="form-label">Full Name<span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your Full Name Here...">
+                            <label for="fullname" class="form-label">Full Name<span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="fullname" placeholder="Your Full Name Here..." required>
+                            <div class="invalid-feedback">
+                                Full name cannot be empty.
+                              </div>
                         </div>
                         <div class="mb-2">
-                            <label for="formGroupExampleInput2" class="form-label">Email Address<span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="example@domain.com">
+                            <label for="email" class="form-label">Email Address<span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="email" placeholder="example@domain.com" required>
+                            <div class="invalid-feedback">
+                                Email cannot be empty.
+                              </div>
                         </div>
                         <div class="mb-2">
-                            <label for="formGroupExampleInput3" class="form-label">Phone Number<span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="0812xxxxxx">
+                            <label for="phone" class="form-label">Phone Number<span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="phone" placeholder="0812xxxxxx" required>
+                            <div class="invalid-feedback">
+                                Phone number cannot be empty.
+                              </div>
                         </div>
                         <div class="mb-2">
-                            <label for="formGroupExampleInput4" class="form-label">Nationality</label>
-                            <select class="form-select" aria-label="Default select example" id="formGroupExampleInput4">
-                                <option selected>Open this select menu</option>
-                                <option value="1">Indonesia</option>
-                                <option value="2">Inggris</option>
-                                <option value="3">Prancis</option>
+                            <label for="nationality" class="form-label">Nationality</label>
+                            <select class="form-select" aria-label="Default select example" id="nationality">
+                                <option placeholder="select">pilih</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Inggris">Inggris</option>
+                                <option value="Prancis">Prancis</option>
                             </select>
                         </div>
                         <div class="mb-2">
-                                <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Pesan"></textarea>
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="3" placeholder="Pesan"></textarea>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
             </form-wrapper>
         </div>
     </header>
-    
+   <script src="./contact_us.js"></script> 
 </body>
 </html>
