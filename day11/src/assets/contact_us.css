@@ -1,0 +1,31 @@
+main {
+    font-family: 'Roboto', sans-serif;
+}
+
+#background {
+    background-image: url('./charles-rRWiVQzLm7k-unsplash.jpg');background-size: 32vw; background-repeat: no-repeat; width: 32vmax;
+}
+
+#leftcol {
+    background-color: #19345EA6; height: 47.8vmax; width: 100%;
+}
+
+#logoalta {
+    width: 16vmax
+}
+
+form-wrapper{
+    width: max-content;
+}
+
+#contactbox{
+    width: 50vw;
+}
+
+h3 {
+    color:#19345E;
+}
+
+form{
+    color:#19345E;
+}

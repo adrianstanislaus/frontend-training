@@ -1,0 +1,20 @@
+body {
+    background-image: url('./bg-img.png');background-size: 100%;background-repeat: no-repeat; font-family: 'Roboto', sans-serif;
+}
+
+#profileimage {
+    border-radius:100%;
+}
+
+profilecontent {
+    color:#19345E;
+}
+
+h1 {
+    font-size: 6vmax; 
+    font-weight: bolder;
+}
+
+#getintouch {
+    background-color:#F47522; border-color: white; border-radius: 20px;
+}
