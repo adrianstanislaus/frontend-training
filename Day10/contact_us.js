@@ -31,6 +31,7 @@ function getData()
             event.stopPropagation()
           }else{
               getData()
+              alert("Pesan berhasil dibuat")
           }
           form.classList.add('was-validated')
         }, false)
