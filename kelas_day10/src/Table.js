@@ -1,6 +1,6 @@
 function Table() {
     return(
-        <table className="">
+        <table>
             <tr>
                 <th>Nama</th>
                 <th>Umur</th>
