@@ -1,0 +1,19 @@
+ul {
+    list-style: none;
+    padding: 0em;
+}
+
+li{
+    border-radius: 20px;
+    padding: 1em;
+    margin:1em;
+    border:2px;
+    border-style: solid;
+    text-align: center;
+    width: fit-content;
+}
+
+.completed{
+    text-decoration: line-through;
+}
+
