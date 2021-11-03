@@ -7,10 +7,12 @@ li{
     border-radius: 20px;
     padding: 1em;
     margin:1em;
-    border:2px;
+    border:3px;
     border-style: solid;
     text-align: center;
     width: fit-content;
+    box-shadow: 5px 5px 5px #bebebe,
+    -20px -20px 60px #ffffff;
 }
 
 .completed{
