@@ -23,6 +23,22 @@ class Body extends Component {
         }
     }
 
+    deleteItem = (id) => {
+        let update = this.state.dataList.filter((data) => data.id !==id);
+        this.setState({
+            dataList: update,
+        });
+    };
+
+    clickCheck = (index) => {
+        let update = this.state.dataList;
+        update[index] = {...update[index],completed:!update[index].completed};
+        this.setState({
+            dataList:update
+        });
+        
+    }
+
     render(){
         return(
             <div>
@@ -32,16 +48,41 @@ class Body extends Component {
                         <button className="btn btn-primary">submit</button>
                     </div>
                 </div>
+                
                 <div className="d-flex justify-content-center">
                     <table className="table">
                         <tbody>
-                        <tr className="d-flex justify-content-center">
-                            <td className=""><input className="form-check-input" type="checkbox"/></td>
-                            <td className=""><p>title</p></td>
-                            <td className="">
-                                <button className="btn btn-danger">delete</button>
-                            </td>
-                        </tr>
+                        {this.state.dataList.map((data,index) =>{
+                            return( 
+                                <tr key={data.id}>
+                                    <td>
+                                        <div class="form-check">
+                                        {data.completed ===true && 
+                                        <div>
+                                            <input  onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} id="flexCheckDefault" checked/>
+                                            <label class="form-check-label" for="flexCheckDefault" style={{textDecoration: 'line-through'}}>
+                                            {data.title}
+                                            </label>
+                                        </div>
+                                        }
+                                        {data.completed ===false && 
+                                        <div>
+                                        <input onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} id="flexCheckDefault"/>
+                                        <label  class="form-check-label" for="flexCheckDefault">
+                                            {data.title}
+                                            </label>
+                                        </div>
+                                        }
+                                        
+                                       
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={() =>this.deleteItem(data.id)}>delete</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}  
                         </tbody>
                     </table>
                 </div>
