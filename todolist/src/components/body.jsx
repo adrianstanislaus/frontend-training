@@ -15,7 +15,7 @@ class Body extends Component {
                     completed:false,
                 },
             ],
-            DataEach: {
+            dataEach: {
                 id:0,
                 title:"",
                 completed:false,
@@ -39,14 +39,42 @@ class Body extends Component {
         
     }
 
+    changeValue = (e) => {
+        console.log(e);
+        this.setState({
+            dataEach:{...this.state.dataEach, [e.target.name]:e.target.value},
+        });
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.dataEach.title === ""){
+            alert("Masih kosong euy");
+        }else {
+            let newData ={
+                ...this.state.dataEach,
+                id: Math.floor(Math.random()*100) +1,
+            };
+            this.setState({
+                dataList: [...this.state.dataList, newData],
+                dataEach:{
+                    id:0,
+                    title:"",
+                    completed:false,
+                },
+            });
+        }
+      
+    };
+
     render(){
         return(
             <div>
                 <div className="container">
-                    <div className="d-flex justify-content-center border">
-                        <input type="text" className="form-control" id="inputTitle" name="title" value="" placeholder="add something to do here..."/>
-                        <button className="btn btn-primary">submit</button>
-                    </div>
+                    <form onSubmit={this.handleSubmit} className="d-flex justify-content-center border">
+                        <input type="text" className="form-control" id="inputTitle" name="title" value={this.state.dataEach.title} onChange={(e)=> this.changeValue(e)} placeholder="add something to do here..."/>
+                        <button type="submit" className="btn btn-primary">submit</button>
+                    </form>
                 </div>
                 
                 <div className="d-flex justify-content-center">
@@ -60,7 +88,7 @@ class Body extends Component {
                                         {data.completed ===true && 
                                         <div>
                                             <input  onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} id="flexCheckDefault" checked/>
-                                            <label class="form-check-label" for="flexCheckDefault" style={{textDecoration: 'line-through'}}>
+                                            <label class="form-check-label" for="flexCheckDefault" style={{textDecoration: 'line-through',color: 'gray'}}>
                                             {data.title}
                                             </label>
                                         </div>
