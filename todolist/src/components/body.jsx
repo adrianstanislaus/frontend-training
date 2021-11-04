@@ -41,6 +41,9 @@ class Body extends Component {
         currentTitle.style.display = "none";
         editTitle.setAttribute("type","text")
         editTitle.setAttribute("value",this.state.dataList[index].title)
+        this.setState({
+            dataEdit:this.state.dataList[index]
+        });
     };
 
     normalState = (titleId,editId,index) => {
