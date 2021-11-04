@@ -20,6 +20,11 @@ class Body extends Component {
                 title:"",
                 completed:false,
             },
+            dataEdit:{
+                id:0,
+                title:"",
+                completed:false,
+            },
         }
     }
 
@@ -28,6 +33,23 @@ class Body extends Component {
         this.setState({
             dataList: update,
         });
+    };
+
+    editState = (titleId,editId,index) => {
+        const currentTitle = document.getElementById(titleId);
+        const editTitle = document.getElementById(editId);
+        currentTitle.style.display = "none";
+        editTitle.setAttribute("type","text")
+        editTitle.setAttribute("value",this.state.dataList[index].title)
+    };
+
+    normalState = (titleId,editId,index) => {
+        const currentTitle = document.getElementById(titleId);
+        const editTitle = document.getElementById(editId);
+        currentTitle.style.display = "block";
+        editTitle.setAttribute("value",this.state.dataList[index].title)
+        editTitle.setAttribute("type","hidden")
+        
     };
 
     clickCheck = (index) => {
@@ -43,6 +65,13 @@ class Body extends Component {
         console.log(e);
         this.setState({
             dataEach:{...this.state.dataEach, [e.target.name]:e.target.value},
+        });
+    };
+
+    editChangeValue = (e) => {
+        console.log(e);
+        this.setState({
+            dataEdit:{...this.state.dataEdit, [e.target.name]:e.target.value},
         });
     };
 
@@ -67,18 +96,42 @@ class Body extends Component {
       
     };
 
+    handleEdit = (e,index,titleId,editId) => {
+        e.preventDefault();
+        if(this.state.dataEdit.title === ""){
+            alert("Masih kosong euy");
+        }else {
+            let newData ={
+                ...this.state.dataEdit,
+            };
+            let update = this.state.dataList;
+                update[index] = {...update[index],title:newData.title};
+                this.setState({
+                    dataList:update,
+                    dataEdit:{
+                        id:0,
+                        title:"",
+                        completed:false,
+                    },
+                });
+            this.normalState(titleId,editId,index);
+        };
+
+      
+    };
+
     render(){
         return(
             <div>
-                <div className="container">
-                    <form onSubmit={this.handleSubmit} className="d-flex justify-content-center border">
+                <div className="container m-1 p-2">
+                    <form onSubmit={this.handleSubmit} className="d-flex justify-content-center">
                         <input type="text" className="form-control" id="inputTitle" name="title" value={this.state.dataEach.title} onChange={(e)=> this.changeValue(e)} placeholder="add something to do here..."/>
                         <button type="submit" className="btn btn-primary">submit</button>
                     </form>
                 </div>
                 
                 <div className="d-flex justify-content-center">
-                    <table className="table">
+                    <table className="d-flex table justify-content-center m-1">
                         <tbody>
                         {this.state.dataList.map((data,index) =>{
                             return( 
@@ -87,22 +140,24 @@ class Body extends Component {
                                         <div class="form-check">
                                         {data.completed ===true && 
                                         <div>
-                                            <input  onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} id="flexCheckDefault" checked/>
-                                            <label class="form-check-label" for="flexCheckDefault" style={{textDecoration: 'line-through',color: 'gray'}}>
-                                            {data.title}
-                                            </label>
+                                            <input  onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} checked/>
+                                            <label id={'title'+data.id} class="form-check-label"  style={{textDecoration: 'line-through',color: 'gray'}}>
+                                                {data.title}
+                                                </label>
+                                            
                                         </div>
                                         }
                                         {data.completed ===false && 
                                         <div>
-                                        <input onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} id="flexCheckDefault"/>
-                                        <label  class="form-check-label" for="flexCheckDefault">
-                                            {data.title}
-                                            </label>
+                                            <input onClick={() =>this.clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} />
+                                            <label id={'title'+data.id} class="form-check-label" onClick={() =>this.editState('title'+data.id,'editTitle'+data.id,index)}>
+                                                {data.title}
+                                                </label>
+                                            <form onSubmit={(e) =>this.handleEdit(e,index,'title'+data.id,'editTitle'+data.id)}>
+                                            <input id={'editTitle'+data.id} className="form-control" name="title" value={this.state.dataEdit.title} onChange={(e)=> this.editChangeValue(e)} type="hidden"/>
+                                            </form>
                                         </div>
                                         }
-                                        
-                                       
                                         </div>
                                     </td>
                                     <td>
