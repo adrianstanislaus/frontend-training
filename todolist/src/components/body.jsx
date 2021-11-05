@@ -157,22 +157,22 @@ const [dataEdit,setDataEdit] = useState({
     
 
         return(
-            <div>
+            <div className="p-5 border shadow" style={{'border-radius':'30px'}}>
                 <div className="container m-1 p-2">
-                    <form onSubmit={handleSubmit} className="d-flex justify-content-center">
-                        <input type="text" className="form-control" id="inputTitle" name="title" value={dataEach.title} onChange={(e)=> changeValue(e)} placeholder="add something to do here..."/>
-                        <button type="submit" className="btn btn-primary">add</button>
+                    <form onSubmit={handleSubmit} className="d-flex justify-content-center border" style={{'border-radius':'30px'}}>
+                        <input type="text" className="form-control" id="inputTitle" name="title" value={dataEach.title} onChange={(e)=> changeValue(e)} placeholder="add something to do here..." style={{'border-radius':'30px','border':'none'}}/>
+                        <button type="submit" className="btn btn-primary" style={{'border-radius':'30px'}}>add</button>
                     </form>
                 </div>
                 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex  justify-content-center">
                     <table className="d-flex table justify-content-center m-1">
-                        <tbody>
-                        <h3 id="emptyList" className="m-3 p-3" style={{display:'none',color:'gray'}}>Yeay gak ada tugas :)</h3>
+                        <tbody className="p-1">
+                        <h3 id="emptyList" style={{display:'none',color:'gray'}}>Yeay gak ada tugas :)</h3>
                         {dataList.map((data,index) =>{
                             return( 
-                                <tr key={data.id}>
-                                    <td >
+                                <tr className="p-3" style={{}} key={data.id}>
+                                    <td className="m-3">
                                         <div class="form-check">
                                         <div>
                                             {data.completed && <input onChange={(e)=> editChangeValue(e)} onClick={() =>clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} name="completed" checked/>}
@@ -181,13 +181,13 @@ const [dataEdit,setDataEdit] = useState({
                                                 {data.title}
                                                 </label>
                                             <form onSubmit={(e) =>handleEdit(e,index,'title'+data.id,'editTitle'+data.id)}>
-                                            <input id={'editTitle'+data.id} className="form-control" name="title" value={dataEdit.title} onChange={(e)=> editChangeValue(e)} type="hidden"/>
+                                            <input id={'editTitle'+data.id} style={{'border-radius':'30px'}} className="form-control" name="title" value={dataEdit.title} onChange={(e)=> editChangeValue(e)} type="hidden"/>
                                             </form>
                                         </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <button className="btn btn-danger" onClick={() =>deleteItem(data.id)}>delete</button>
+                                        <button style={{'border-radius':'30px','padding-top':'0'}} className="btn btn-danger" onClick={() =>deleteItem(data.id)}>x</button>
                                     </td>
                                 </tr>
                             )
