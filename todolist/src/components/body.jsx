@@ -1,4 +1,6 @@
 import React, { useState,useEffect} from 'react';
+import "./body.css"
+
 function Body() {
 const [dataList,setDataList] = useState([
     {
@@ -68,6 +70,16 @@ const [dataEdit,setDataEdit] = useState({
         setDataEdit(dataList[index]);
     };
 
+    const emptyList = () => {
+        const Title = document.getElementById("emptyList");
+        Title.style.display = "inline";
+    };
+
+    const notEmptyList = () => {
+        const Title = document.getElementById("emptyList");
+        Title.style.display = "none";
+    };
+
     const normalState = (titleId,editId,index) => {
         const currentTitle = document.getElementById(titleId);
         const editTitle = document.getElementById(editId);
@@ -81,7 +93,9 @@ const [dataEdit,setDataEdit] = useState({
         let update = dataList;
         update[index] = {...update[index],completed:!update[index].completed};
         setDataList(update);
+        
     };
+
 
     const changeValue = (e) => {
         console.log(e);
@@ -132,6 +146,14 @@ const [dataEdit,setDataEdit] = useState({
             normalState(titleId,editId,index);
         };
     };
+    useEffect(()=>{
+        if(dataList.length === 0){
+            emptyList()
+        }else{
+            notEmptyList()
+        }
+        console.log("test")
+    })
     
 
         return(
@@ -139,38 +161,29 @@ const [dataEdit,setDataEdit] = useState({
                 <div className="container m-1 p-2">
                     <form onSubmit={handleSubmit} className="d-flex justify-content-center">
                         <input type="text" className="form-control" id="inputTitle" name="title" value={dataEach.title} onChange={(e)=> changeValue(e)} placeholder="add something to do here..."/>
-                        <button type="submit" className="btn btn-primary">submit</button>
+                        <button type="submit" className="btn btn-primary">add</button>
                     </form>
                 </div>
                 
                 <div className="d-flex justify-content-center">
                     <table className="d-flex table justify-content-center m-1">
                         <tbody>
+                        <h3 id="emptyList" className="m-3 p-3" style={{display:'none',color:'gray'}}>Yeay gak ada tugas :)</h3>
                         {dataList.map((data,index) =>{
                             return( 
                                 <tr key={data.id}>
-                                    <td>
+                                    <td >
                                         <div class="form-check">
-                                        {data.completed ===true && 
                                         <div>
-                                            <input  onClick={() => clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} checked/>
-                                            <label id={'title'+data.id} class="form-check-label"  style={{textDecoration: 'line-through',color: 'gray'}}>
-                                                {data.title}
-                                                </label>
-                                            
-                                        </div>
-                                        }
-                                        {data.completed ===false && 
-                                        <div>
-                                            <input onClick={() =>clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} />
-                                            <label id={'title'+data.id} class="form-check-label" onClick={() =>editState('title'+data.id,'editTitle'+data.id,index)}>
+                                            {data.completed && <input onChange={(e)=> editChangeValue(e)} onClick={() =>clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} name="completed" checked/>}
+                                            {!data.completed && <input onChange={(e)=> editChangeValue(e)} onClick={() =>clickCheck(index)} class="form-check-input" type="checkbox" value={data.completed} name="completed" />}
+                                            <label id={'title'+data.id} class="form-check-label"  onClick={() =>editState('title'+data.id,'editTitle'+data.id,index)}  style={data.completed? {textDecoration: 'line-through',color: 'gray'}:{}}>
                                                 {data.title}
                                                 </label>
                                             <form onSubmit={(e) =>handleEdit(e,index,'title'+data.id,'editTitle'+data.id)}>
                                             <input id={'editTitle'+data.id} className="form-control" name="title" value={dataEdit.title} onChange={(e)=> editChangeValue(e)} type="hidden"/>
                                             </form>
                                         </div>
-                                        }
                                         </div>
                                     </td>
                                     <td>
