@@ -6,6 +6,7 @@ import NoMatch from "./components/page/noMatch"
 import { Routes, Route, } from "react-router-dom";
 import PAboutApp from './components/page/PaboutApp';
 import PAboutAuthor from './components/page/PaboutAuthor';
+import Form from './components/page/form';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="about/about-app" element={<PAboutApp />} />
           <Route path="about/about-author" element={<PAboutAuthor />} />
+          <Route path="form" element={<Form />} />
           <Route path="*" element={<NoMatch />} />
       </Routes>
   );

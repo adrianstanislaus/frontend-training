@@ -13,6 +13,9 @@ function Header() {
                     <li class="nav-item m-1">
                         <Link className="nav-link" to="/about">About</Link>
                     </li>
+                    <li class="nav-item m-1">
+                        <Link className="nav-link" to="/form">Bootcamp</Link>
+                    </li>
                     </ul>
                 </div>
                 </nav>
