@@ -110,7 +110,7 @@ const [dataEdit,setDataEdit] = useState({
     const handleSubmit = (e) => {
         e.preventDefault();
         if(dataEach.title === ""){
-            alert("Masih kosong euy");
+            alert("Masih kosong nih");
         }else {
             let newData ={
                 ...dataEach,
