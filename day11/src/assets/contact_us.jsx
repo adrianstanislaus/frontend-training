@@ -5,7 +5,7 @@ function Contactus() {
     return(
 <main>
     <header>
-        <div className="d-flex flex-wrap justify-content-center">
+        <div className="d-flex flex-wrap">
             <div id="background" class="bg-image">
                 <div id="leftcol" class="d-flex justify-content-center align-items-center">
                     <logo>
@@ -13,8 +13,8 @@ function Contactus() {
                     </logo>
                 </div>
             </div>
-            <form-wrapper className="container justify-content-center align-items-center">
-                <div id="contactbox" className="my-5 pt-2 px-3">
+            <form-wrapper className="d-flex border">
+                <div id="contactbox" className="mx-5 my-5 pt-2">
                     <h3>Contact Us</h3>
                     <form>
                         <div className="mb-2">

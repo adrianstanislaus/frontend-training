@@ -1,10 +1,11 @@
 import logoalta from "./logo-ALTA.png";
 import profile_pic from "./matthew-hamilton-tNCH0sKSZbA-unsplash.jpg";
 import "./home.css"
+import { Link } from "react-router-dom";
 
 function Home() {
     return(
-        <body className="bg-image">
+        <body className="bg-image homebody">
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom shadow-sm py-2">
     <div className="container">
         <a className="navbar-brand" href=""><img src={logoalta} width="100em" alt="logo"/></a>
@@ -14,7 +15,7 @@ function Home() {
         <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ms-auto">
             <li className="nav-item active mx-3">
-            <a className="nav-link">HOME</a>
+            <Link className="nav-link" to="/">HOME</Link>
             </li>
             <li className="nav-item mx-3">
             <a className="nav-link" >ABOUT</a>
@@ -23,7 +24,7 @@ function Home() {
             <a className="nav-link" >EXPERIENCE</a>
             </li>
             <li className="nav-item mx-3">
-            <a className="nav-link" >CONTACT</a>
+            <Link className="nav-link" to="/contact">CONTACT</Link>
             </li>
         </ul>
         </div>
@@ -38,7 +39,7 @@ function Home() {
             <h4>Hi, my name is</h4>
             <h1>Anne Sullivan</h1>
             <h2>I build things for the web</h2>
-            <a id="getintouch" className="btn btn-primary mt-2"  role="button">Get In Touch</a>
+            <Link id="getintouch" className="btn btn-primary mt-2"  to="/contact" role="button">Get In Touch</Link>
         </profilecontent>
     </hero>
   </main>

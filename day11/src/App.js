@@ -1,16 +1,15 @@
 import './App.css';
-import Home from "./assets/home.js";
-import Contactus from "./assets/contact_us.js";
+import Home from "./assets/home.jsx";
+import Contactus from "./assets/contact_us.jsx";
+import { Routes, Route,} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
     <div>
-    <Home/>
-    </div>
-    <div>
-    <Contactus/>
-    </div>
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="contact" element={<Contactus />} />
+      </Routes>
     </div>
   );
 }
