@@ -1,9 +1,32 @@
 import logoalta from "./logo-ALTA.png";
-import profile_pic from "./matthew-hamilton-tNCH0sKSZbA-unsplash.jpg";
 import "./home.css"
 import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import ArticleCards from "./articlelist";
+import axios from 'axios';
 
-function Home() {
+function News() {
+const [article,setArticle] = useState(
+    []
+);
+
+const [apiError,setApiError] = useState("");
+
+useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        ' https://newsapi.org/v2/top-headlines?country=id&apiKey=00327a1349b948b5891bc869c39fc00e',
+      );
+
+      setArticle(result.data.articles);
+      console.log("fetch data",article)
+      console.log("real data",result.data.articles)
+    };
+
+    fetchData();
+  }, []);
+
+
     return(
         <body className="bg-image homebody">
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom shadow-sm py-2">
@@ -35,19 +58,14 @@ function Home() {
   </nav>
   <main className="d-flex mt-5 justify-content-center">
       <hero className="d-flex m-5 py-3 justify-content-center flex-wrap">
-        <profileimage>
-            <img id="profileimage" src={profile_pic} width="350vw" className="img-fluid" alt="profile-image"/>
-        </profileimage>
-        <profilecontent className="m-4 p-3">
-            <h4>Hi, my name is</h4>
-            <h1>Anne Sullivan</h1>
-            <h2>I build things for the web</h2>
-            <Link id="getintouch" className="btn btn-primary mt-2"  to="/contact" role="button">Get In Touch</Link>
-        </profilecontent>
+      {article.length > 0 && <ArticleCards articles={article} />}
+      {apiError && <p>Could not fetch any articles. Please try again.</p>}
+        
+    
     </hero>
   </main>
 </body>
     )
 };
 
-export default Home
+export default News;
