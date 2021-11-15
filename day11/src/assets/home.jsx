@@ -2,8 +2,13 @@ import logoalta from "./logo-ALTA.png";
 import profile_pic from "./matthew-hamilton-tNCH0sKSZbA-unsplash.jpg";
 import "./home.css"
 import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
 
 function Home() {
+const [dateState, setDateState] = useState(new Date());
+useEffect(() => {
+    setInterval(() => setDateState(new Date()), 1000);
+  }, []);
     return(
         <body className="bg-image homebody">
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom shadow-sm py-2">
@@ -34,6 +39,24 @@ function Home() {
     </div>
   </nav>
   <main className="d-flex mt-5 justify-content-center">
+            <p>
+                {' '}
+                {dateState.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                })}
+            </p>
+            <p>-</p>
+            <p>
+            
+                {dateState.toLocaleString('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: true,
+                })}
+            </p>
       <hero className="d-flex m-5 py-3 justify-content-center flex-wrap">
         <profileimage>
             <img id="profileimage" src={profile_pic} width="350vw" className="img-fluid" alt="profile-image"/>
