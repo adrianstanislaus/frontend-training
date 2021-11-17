@@ -2,7 +2,6 @@ import PassengerInput from './PassengerInput';
 import ListPassenger from './ListPassenger';
 import Header from './Header';
 import {
-    useQuery,
     gql,
     useLazyQuery,
     useMutation
