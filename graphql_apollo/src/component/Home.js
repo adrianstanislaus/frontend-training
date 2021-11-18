@@ -4,10 +4,22 @@ import Header from './Header';
 import {
     gql,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useSubscription
   } from "@apollo/client";
 
 import React, { useState, useEffect } from 'react';
+
+const SUBSCRIPTION_PENGUNJUNG_BY_ID = gql`
+subscription MySubscription($id: Int_comparison_exp = {}) {
+  anggota(where: {id: $id}) {
+    jenis_kelamin
+    nama
+    umur
+    id
+  }
+}
+`;
 
 const PENGUNJUNG_BY_ID = gql`
 query MyQuery($id: Int_comparison_exp = {}) {
@@ -44,12 +56,15 @@ mutation MyMutation3($umur: Int = 10, $nama: String = "", $jenis_kelamin: String
 `;
 
 function Home() {
-    const [getPengunjung, { loading, error, data }] = useLazyQuery(PENGUNJUNG_BY_ID,{ fetchPolicy: 'no-cache' ,notifyOnNetworkStatusChange: true});
-    const [insertToDo,{ data: dataInsert, loading: loadingInsert, error: errorInsert }] = useMutation(INSERT_PENGUNJUNG,{refetchQueries:[PENGUNJUNG_BY_ID],notifyOnNetworkStatusChange: true})
-    const [deleteToDo,{ data: dataDelete, loading: loadingDelete, error: errorDelete }] = useMutation(DELETE_PENGUNJUNG,{refetchQueries:[PENGUNJUNG_BY_ID],notifyOnNetworkStatusChange: true})
-    const [updateToDo,{ data: dataUpdate, loading: loadingUpdate, error: errorUpdate }] = useMutation(UPDATE_PENGUNJUNG,{refetchQueries:[PENGUNJUNG_BY_ID],notifyOnNetworkStatusChange: true})
+    //const [getPengunjung, { loading, error, data }] = useLazyQuery(PENGUNJUNG_BY_ID,{ fetchPolicy: 'no-cache' ,notifyOnNetworkStatusChange: true});
     const [id,setId] = useState("");
-    const [list,setList] = useState([]);
+    const [notExist,setNotExist] = useState(false);
+    const [variables,setVariables] = useState({});
+    const { loading, error, data } = useSubscription(SUBSCRIPTION_PENGUNJUNG_BY_ID,{variables:variables});
+    const [insertToDo,{ data: dataInsert, loading: loadingInsert, error: errorInsert }] = useMutation(INSERT_PENGUNJUNG)
+    const [deleteToDo,{ data: dataDelete, loading: loadingDelete, error: errorDelete }] = useMutation(DELETE_PENGUNJUNG)
+    const [updateToDo,{ data: dataUpdate, loading: loadingUpdate, error: errorUpdate }] = useMutation(UPDATE_PENGUNJUNG)
+  
     
     const hapusPengunjung = id => {
         deleteToDo({variables:{id:{"_eq": id}}})
@@ -64,16 +79,19 @@ function Home() {
     };
 
     useEffect(()=> {
-        onGetData()
-    },[]);
+        if (data?.anggota.length === 0) {
+          setNotExist(true)
+        }else{
+          setNotExist(false)
+        }
+    },[data]);
 
     const onGetData = () => {
         if (id===""){
-            getPengunjung({variables:{}})
+            setVariables({})
         }else{
-            getPengunjung({variables:{id:{"_eq": id}}})
+            setVariables({id:{"_eq": id}})
         }     
-        
     };
 
     const onChangeId = (e) => {
@@ -87,9 +105,9 @@ function Home() {
                 <Header/>
                 <div>
                 <input value={id} onChange={onChangeId}/>
-                <button onClick={() => onGetData()}>get by id</button>
+                <button onClick={() => onGetData()}>find by id</button>
                 </div><br></br>
-                { (loading || loadingInsert || loadingDelete) ? 
+                { (loading || loadingInsert || loadingDelete || loadingUpdate) ? 
                     (<h1>loading...</h1>):
                  error ? (<h1>error...</h1>):
                 (<ListPassenger 
@@ -99,6 +117,7 @@ function Home() {
                 />
                 )
                 }
+                {notExist && <p>tidak ada data yang sesuai :(</p>}
                 <PassengerInput
                     tambahPengunjung={tambahPengunjung}
                 />

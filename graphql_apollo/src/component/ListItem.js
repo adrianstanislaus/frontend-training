@@ -17,7 +17,7 @@ const ListItem = (props) => {
         })
       }
     
-      const handleSubmit = (e) => {
+      const handleSubmit = (e,id) => {
         if (state.nama.trim() && state.umur && state.jenisKelamin) {
           const umur = state.umur
           if (umur >= 75 || umur <= 12) {
@@ -30,11 +30,7 @@ const ListItem = (props) => {
               jenisKelamin: state.jenisKelamin,
             }
             props.updatePengunjung(newData)
-            setState({
-              nama: "",
-              umur: "",
-              jenisKelamin: "Pria",
-            })
+            
           }
         } else {
           alert("Data masih ada yang kosong")
@@ -81,7 +77,7 @@ const ListItem = (props) => {
             </select>)}
             </td>
             <td className="removeBorder" onClick={() => props.hapusPengunjung(id)}><button>Hapus</button></td>
-            <td className="removeBorder" onClick={() => handleSubmit()}><button>submit edit</button></td>
+            <td className="removeBorder" onClick={() => handleSubmit(id)}><button>submit edit</button></td>
         </tr>
     </>
     </>

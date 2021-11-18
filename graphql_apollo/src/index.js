@@ -3,16 +3,47 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { split, HttpLink } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
 
-const client = new ApolloClient({
+
+
+const httpLink = new HttpLink({
   uri: 'https://notable-meerkat-87.hasura.app/v1/graphql',
-  cache: new InMemoryCache(),
   headers: {'x-hasura-admin-secret':'C3Q9zkmsMaju6mbYspYHkCI5s66AzrMbUpDFYwTvdK3jNmG8Y0a0mj9t4qAM2CTk'}
+});
+
+const wsLink = new WebSocketLink({
+  uri: 'ws://notable-meerkat-87.hasura.app/v1/graphql',
+  options: {
+    reconnect: true,
+    connectionParams:{
+      headers: {'x-hasura-admin-secret':'C3Q9zkmsMaju6mbYspYHkCI5s66AzrMbUpDFYwTvdK3jNmG8Y0a0mj9t4qAM2CTk'}
+    }
+  }
+});
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: splitLink,
 });
 
 
